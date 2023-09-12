@@ -12,4 +12,4 @@ class LinkValidator:
         field_value = dict(value).get(self.field)
         if field_value:
             if not bool(re.search(r'youtube.com', field_value)):
-                raise ValidationError('Видео можно привязывать только с youtube')
+                raise ValidationError('Указана некорректная ссылка, необходим youtube')

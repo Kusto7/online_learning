@@ -40,9 +40,9 @@ class LessonTestCase(APITestCase):
         self.assertTrue(Lesson.objects.all().exists())
 
     def test_read_lesson(self):
-        
+
         """Тест чтения данных"""
-        
+
         link_lesson_create = reverse('education:lesson_create')
         response = self.client.post(link_lesson_create, self.data)
         lesson_id = response.json()['id']
@@ -74,9 +74,9 @@ class LessonTestCase(APITestCase):
         self.assertEquals(response.json(), data_response_detail_true)
 
     def test_update_lesson(self):
-        
+
         """Тест обновления данных об уроке"""
-        
+
         link_lesson_create = reverse('education:lesson_create')
         response = self.client.post(link_lesson_create, self.data)
         lesson_id = response.json()['id']
@@ -146,7 +146,7 @@ class SubscriptionTestCase(APITestCase):
 
     def test_update_subscription(self):
 
-        """Обновление подписки тест"""
+        """Тест обновления подписки"""
 
         self.data_subscription = {
             'course': self.course_id,
