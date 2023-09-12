@@ -89,7 +89,7 @@ password = os.environ.get('PASS_POSTGRES')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'drf_learning',
+        'NAME': 'online_learning2',
         'USER': user,
         'PASSWORD': password,
     }
