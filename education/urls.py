@@ -5,13 +5,14 @@ from rest_framework.routers import DefaultRouter
 
 
 from education.views import CourseViewSet, LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
-    LessonUpdateAPIView, LessonDestroyAPIView, PaymentViewSet
+    LessonUpdateAPIView, LessonDestroyAPIView, PaymentViewSet, SubscriptionViewSet
 
 app_name = EducationConfig.name
 
 router = DefaultRouter()
 router.register(r'courses', CourseViewSet, basename='courses')
 router.register(r'payments', PaymentViewSet, basename='payments')
+router.register(r'subscription', SubscriptionViewSet, basename='subscription')
 
 
 urlpatterns = [
