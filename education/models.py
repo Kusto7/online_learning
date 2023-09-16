@@ -54,6 +54,7 @@ class Payment(models.Model):
                                help_text='Для связи платежа с уроком Lesson')
     amount = models.PositiveIntegerField(verbose_name='сумма оплаты')
     method = models.CharField(max_length=50, verbose_name='способ оплаты')
+    stripe_id = models.CharField(max_length=255, verbose_name='id платежа на stripe', **NULLABLE)
 
     def __str__(self):
         return f'{self.amount}, {self.method}, — {self.user}'

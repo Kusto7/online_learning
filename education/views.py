@@ -11,6 +11,8 @@ from education.serliazers import CourseSerializer, LessonSerializer, PaymentSeri
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
+    """ ViewSet для модели платежа
+        education.models.Payment """
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
     filter_backends = [DjangoFilterBackend, OrderingFilter]
@@ -20,14 +22,18 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
 
 class CourseViewSet(viewsets.ModelViewSet):
+    """ ViewSet для модели курса
+        education.models.Course """
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsCustomPermission]
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
+    """ Generic для создания модели урока
+        education.models.Lesson """
     serializer_class = LessonSerializer
-    # permission_classes = [IsAuthenticated, IsModerator]
+    permission_classes = [IsAuthenticated, IsModerator]
 
     def perform_create(self, serializer):
         new_lesson = serializer.save()
@@ -36,28 +42,38 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
 
 class LessonListAPIView(generics.ListAPIView):
+    """ Generic для отображения модели уроков
+        education.models.Lesson """
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated]
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):
+    """ Generic для детального просмотра модели урока
+        education.models.Lesson """
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
+    """ Generic для обновления модели урока
+        education.models.Lesson """
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
+    """ Generic для удаления модели урока
+        education.models.Lesson """
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsModerator | IsOwner]
 
 
 class SubscriptionViewSet(ModelViewSet):
+    """ ViwSet для модели подписки
+        education.models.Subscription """
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
