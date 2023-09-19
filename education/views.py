@@ -8,6 +8,7 @@ from education.permissions import IsModerator, IsCustomPermission, IsOwner
 
 from education.models import Course, Lesson, Payment, Subscription
 from education.serliazers import CourseSerializer, LessonSerializer, PaymentSerializer, SubscriptionSerializer
+from education.tasks import send_course_update
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
@@ -27,6 +28,13 @@ class CourseViewSet(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
     permission_classes = [IsAuthenticated, IsCustomPermission]
+
+    def perform_create(self, serializer):
+        new_lesson = serializer.save()
+        new_lesson.owner = self.request.user
+        new_lesson.save()
+        if new_lesson:
+            send_course_update.delay(new_lesson.course.id)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
@@ -58,11 +66,18 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
-    """ Generic для обновления модели урока
+    """Generic для обновления модели урока
         education.models.Lesson """
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
+
+    def perform_update(self, serializer):
+        new_lesson = serializer.save()
+        new_lesson.owner = self.request.user
+        new_lesson.save()
+        if new_lesson:
+            send_course_update.delay(new_lesson.course.id)
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
