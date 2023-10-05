@@ -94,9 +94,10 @@ password = os.environ.get('PASS_POSTGRES')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'online_learning2',
+        'NAME': 'postgres',
         'USER': user,
-        'PASSWORD': password,
+        'PASSWORD': 'mysecretpassword',
+        'HOST': 'db'
     }
 }
 
